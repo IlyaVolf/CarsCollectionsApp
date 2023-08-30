@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">CarsCollectionsApp</string>
     <string name="image_placeholder">default image</string>
+    <string name="production_year">year</string>
+    <string name="engine_capacity">Engine capacity</string>
+    <string name="description">description</string>
 </resources>
