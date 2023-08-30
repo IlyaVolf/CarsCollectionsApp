@@ -52,7 +52,6 @@ class MainScreenViewModel @Inject constructor(
             carsRepository.getCars(queryText).collect { cars ->
                 _state.value = MainScreenState.Successful(cars)
             }
-            Log.d("ABCD", _state.value.toString())
         } catch (e: Exception) {
             _state.value = MainScreenState.Error
         }
