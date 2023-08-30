@@ -2,8 +2,9 @@ plugins {
     id 'com.android.application'
     id 'org.jetbrains.kotlin.android'
     id 'androidx.navigation.safeargs.kotlin'
-    id 'kotlin-kapt'
+    id "com.google.devtools.ksp"
     id 'dagger.hilt.android.plugin'
+    id "kotlin-parcelize"
 }
 
 android {
@@ -40,11 +41,24 @@ android {
         compose true
     }
     composeOptions {
-        kotlinCompilerExtensionVersion '1.4.3'
+        kotlinCompilerExtensionVersion '1.5.0'
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
+    ksp {
+        arg('room.schemaLocation', "$projectDir/schemas")
     }
 }
 
 dependencies {
+    def kotlin_version = "1.8.10"
+    def coroutines_version = "1.6.1"
+    def nav_version = "2.5.0"
+    def room_version = "2.5.2"
+    def hilt_version = "2.44"
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
@@ -59,18 +73,18 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     // Di
-    kapt "com.google.dagger:hilt-compiler:$hilt_version"
+    ksp "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
-    implementation "androidx.navigation:navigation-compose-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-compose:$nav_version"
 
     // Room
-    implementation "androidx.room:room-runtime:2.5.2"
-    kapt "androidx.room:room-compiler:2.5.2"
-    implementation "androidx.room:room-ktx:2.5.2"
+    implementation "androidx.room:room-runtime:$room_version"
+    ksp "androidx.room:room-compiler:$room_version"
+    implementation "androidx.room:room-ktx:$room_version"
 
     // Tests
     testImplementation 'junit:junit:4.13.2'
