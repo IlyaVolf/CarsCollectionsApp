@@ -15,6 +15,18 @@ class CarMapper @Inject constructor() {
         dateAdded = carDbEntity.dateAdded
     )
 
+    fun toCarList(carDbEntityList: List<CarDbEntity>): List<Car> =
+        carDbEntityList.map { carDbEntity ->
+            Car(
+                id = carDbEntity.id,
+                name = carDbEntity.name,
+                photo = carDbEntity.photo,
+                year = carDbEntity.year,
+                engineCapacity = carDbEntity.engineCapacity,
+                dateAdded = carDbEntity.dateAdded
+            )
+        }
+
     fun toCarDbEntity(car: Car): CarDbEntity = CarDbEntity(
         id = car.id,
         name = car.name,
@@ -23,5 +35,17 @@ class CarMapper @Inject constructor() {
         engineCapacity = car.engineCapacity,
         dateAdded = car.dateAdded
     )
+
+    fun toCarDbEntityList(carList: List<Car>): List<CarDbEntity> =
+        carList.map { car ->
+            CarDbEntity(
+                id = car.id,
+                name = car.name,
+                photo = car.photo,
+                year = car.year,
+                engineCapacity = car.engineCapacity,
+                dateAdded = car.dateAdded
+            )
+        }
 
 }
