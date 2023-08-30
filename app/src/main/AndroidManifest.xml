@@ -16,8 +16,7 @@
         <activity
             android:name=".presentation.MainActivity"
             android:exported="true"
-            android:theme="@style/Theme.AppCompat.Light">
-            <!-- android:theme="@style/Theme.CarsCollectionsApp"> -->
+            android:theme="@style/Theme.CarsCollectionsApp">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

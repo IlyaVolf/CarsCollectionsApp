@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">CarsCollectionsApp</string>
+    <string name="image_placeholder">default image</string>
 </resources>

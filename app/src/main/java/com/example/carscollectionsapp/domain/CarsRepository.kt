@@ -15,4 +15,6 @@ interface CarsRepository {
 
     suspend fun deleteCar(car: Car)
 
+    suspend fun  deleteAllCars()
+
 }
