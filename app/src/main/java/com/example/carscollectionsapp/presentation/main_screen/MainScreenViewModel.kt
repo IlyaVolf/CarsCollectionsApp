@@ -1,12 +1,10 @@
 package com.example.carscollectionsapp.presentation.main_screen
 
-import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carscollectionsapp.domain.CarsRepository
-import com.example.carscollectionsapp.presentation.main_screen.states.MainScreenEffect
-import com.example.carscollectionsapp.presentation.main_screen.states.MainScreenState
-import dagger.assisted.AssistedInject
+import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEffect
+import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -49,7 +47,7 @@ class MainScreenViewModel @Inject constructor(
         try {
             _state.value = MainScreenState.Loading
 
-            carsRepository.getCars(queryText).collect { cars ->
+            carsRepository.getCars(queryText).collectLatest { cars ->
                 _state.value = MainScreenState.Successful(cars)
             }
         } catch (e: Exception) {

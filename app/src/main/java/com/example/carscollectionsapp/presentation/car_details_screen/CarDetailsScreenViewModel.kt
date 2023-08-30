@@ -3,8 +3,8 @@ package com.example.carscollectionsapp.presentation.car_details_screen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carscollectionsapp.domain.CarsRepository
-import com.example.carscollectionsapp.presentation.car_details_screen.states.CarDetailsScreenEffect
-import com.example.carscollectionsapp.presentation.car_details_screen.states.CarDetailsScreenState
+import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenEffect
+import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenState
 import dagger.assisted.Assisted
 import dagger.assisted.AssistedFactory
 import dagger.assisted.AssistedInject
@@ -12,6 +12,7 @@ import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
 class CarDetailsScreenViewModel @AssistedInject constructor(
@@ -37,8 +38,8 @@ class CarDetailsScreenViewModel @AssistedInject constructor(
         try {
             _state.value = CarDetailsScreenState.Loading
 
-            carsRepository.getById(carId).collect { cars ->
-                _state.value = CarDetailsScreenState.Successful(cars)
+            carsRepository.getById(carId).collectLatest { car ->
+                _state.value = CarDetailsScreenState.Successful(car)
             }
         } catch (e: Exception) {
             _state.value = CarDetailsScreenState.Error

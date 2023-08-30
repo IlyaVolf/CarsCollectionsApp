@@ -1,4 +1,4 @@
-package com.example.carscollectionsapp.presentation.main_screen.states
+package com.example.carscollectionsapp.presentation.main_screen.entities
 
 import com.example.carscollectionsapp.domain.entities.Car
 

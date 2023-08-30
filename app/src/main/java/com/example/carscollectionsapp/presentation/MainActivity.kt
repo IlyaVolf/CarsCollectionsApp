@@ -17,28 +17,18 @@ import androidx.lifecycle.lifecycleScope
 import com.example.carscollectionsapp.presentation.main_screen.MainScreenViewModel
 import com.example.carscollectionsapp.presentation.theme.CarsCollectionsAppTheme
 import dagger.hilt.android.AndroidEntryPoint
+import dagger.hilt.android.components.ActivityComponent
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @AndroidEntryPoint
-class MainActivity : AppCompatActivity() {
-
-    private val viewModel by viewModels<MainScreenViewModel>()
+class MainActivity : ComponentActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        //setContentView(R.layout.activity_main)
 
-        lifecycleScope.launch {
-            viewModel.state.collectLatest { data ->
-                Log.d("ABCD", data.toString())
-            }
-        }
-
-        viewModel.searchQueryText = "hello"
-
-        /*setContent {
+        setContent {
             CarsCollectionsAppTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
@@ -48,11 +38,11 @@ class MainActivity : AppCompatActivity() {
                     Greeting("Android")
                 }
             }
-        }*/
+        }
     }
 }
 
-/*@Composable
+@Composable
 fun Greeting(name: String, modifier: Modifier = Modifier) {
     Text(
         text = "Hello $name!",
@@ -66,4 +56,4 @@ fun GreetingPreview() {
     CarsCollectionsAppTheme {
         Greeting("Android")
     }
-}*/
+}
