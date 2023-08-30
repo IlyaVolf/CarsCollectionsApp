@@ -4,7 +4,9 @@ plugins {
     id 'androidx.navigation.safeargs.kotlin'
     id "com.google.devtools.ksp"
     id 'dagger.hilt.android.plugin'
+    id 'kotlin-android'
     id "kotlin-parcelize"
+    id 'kotlin-kapt'
 }
 
 android {
@@ -54,11 +56,11 @@ android {
 }
 
 dependencies {
-    def kotlin_version = "1.8.10"
+    def kotlin_version = "1.9.0"
     def coroutines_version = "1.6.1"
     def nav_version = "2.5.0"
     def room_version = "2.5.2"
-    def hilt_version = "2.44"
+    def hilt_version = "2.47"
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
@@ -73,7 +75,7 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines_version"
 
     // Di
-    ksp "com.google.dagger:hilt-compiler:$hilt_version"
+    kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
 
     // Navigation
