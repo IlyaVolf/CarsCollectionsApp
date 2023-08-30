@@ -1,4 +1,4 @@
-package com.example.carscollectionsapp.presentation.main_screen.views
+package com.example.carscollectionsapp.presentation.car_details_screen.views
 
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.fillMaxSize
@@ -11,7 +11,7 @@ import com.example.carscollectionsapp.presentation.default.ProgressIndicator
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun MainScreenLoading(
+fun CarDetailsScreenLoading(
     modifier: Modifier = Modifier,
     onCarClicked: (Long) -> Unit = {},
 ) {

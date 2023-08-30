@@ -4,19 +4,19 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carscollectionsapp.domain.CarsRepository
 import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenEffect
+import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenEvent
 import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenState
-import dagger.assisted.Assisted
-import dagger.assisted.AssistedFactory
-import dagger.assisted.AssistedInject
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+import javax.inject.Inject
 
-class CarDetailsScreenViewModel @AssistedInject constructor(
-    @Assisted private val carId: Long,
+@HiltViewModel
+class CarDetailsScreenViewModel @Inject constructor(
     private val carsRepository: CarsRepository
 ) : ViewModel() {
 
@@ -26,15 +26,26 @@ class CarDetailsScreenViewModel @AssistedInject constructor(
     private val _state = MutableStateFlow<CarDetailsScreenState>(CarDetailsScreenState.Loading)
     val state = _state.asStateFlow()
 
-    init {
-        load()
+    fun onEvent(event: CarDetailsScreenEvent) {
+        when (event) {
+            is CarDetailsScreenEvent.OnEnterScreen -> onEnterScreen(event.carId)
+
+            is CarDetailsScreenEvent.OnEditClicked -> onEditClicked()
+        }
     }
 
-    fun tryAgain() {
-        load()
+    private fun onEnterScreen(carId: Long) {
+        load(carId)
     }
 
-    private fun load() = viewModelScope.launch {
+
+    private fun onEditClicked() {
+        viewModelScope.launch {
+            _effect.emit(CarDetailsScreenEffect.NavigateToCarEditScreen)
+        }
+    }
+
+    private fun load(carId: Long) = viewModelScope.launch {
         try {
             _state.value = CarDetailsScreenState.Loading
 
@@ -44,11 +55,6 @@ class CarDetailsScreenViewModel @AssistedInject constructor(
         } catch (e: Exception) {
             _state.value = CarDetailsScreenState.Error
         }
-    }
-
-    @AssistedFactory
-    interface Factory {
-        fun create(carId: Long): CarDetailsScreenViewModel
     }
 
 }

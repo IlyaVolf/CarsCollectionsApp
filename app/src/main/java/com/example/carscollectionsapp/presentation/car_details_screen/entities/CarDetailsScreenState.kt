@@ -4,7 +4,7 @@ import com.example.carscollectionsapp.domain.entities.Car
 
 sealed class CarDetailsScreenState {
 
-    data class Successful(val cars: Car) : CarDetailsScreenState()
+    data class Successful(val car: Car) : CarDetailsScreenState()
 
     data object Error : CarDetailsScreenState()
 

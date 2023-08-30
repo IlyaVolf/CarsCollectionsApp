@@ -5,24 +5,39 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.shape.CircleShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.filled.Add
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.FabPosition
+import androidx.compose.material3.FloatingActionButton
+import androidx.compose.material3.Icon
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.carscollectionsapp.R
+import com.example.carscollectionsapp.presentation.car_add_screen.CarAddScreenViewModel
+import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEffect
+import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEvent
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenState
 import com.example.carscollectionsapp.presentation.main_screen.views.MainScreenLoading
 import com.example.carscollectionsapp.presentation.main_screen.views.MainScreenSuccessfulState
 import com.example.carscollectionsapp.presentation.navigation.CarsAppScreens
+import com.example.carscollectionsapp.utils.collectAsEffect
 import kotlinx.coroutines.flow.collectLatest
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -34,6 +49,19 @@ fun MainScreen(
 
     val state = viewModel.state.collectAsState()
     val search = viewModel.searchQuery.collectAsState()
+
+    viewModel.effect.collectAsEffect { effect ->
+        when (effect) {
+            is MainScreenEffect.NavigateToCarDetailsScreen -> {
+                navController.navigate(
+                    CarsAppScreens.CarDetailsScreen.passArguments(effect.carId)
+                )
+            }
+
+            else -> {}
+        }
+    }
+
 
     Column(
         modifier = Modifier.fillMaxWidth()
@@ -69,10 +97,13 @@ fun MainScreen(
         when (state.value) {
             is MainScreenState.Loading -> MainScreenLoading()
             is MainScreenState.Successful -> MainScreenSuccessfulState(
-                cars = (state.value as MainScreenState.Successful).cars
+                cars = (state.value as MainScreenState.Successful).cars,
+                onCarClicked = { carId ->
+                    viewModel.onEvent(MainScreenEvent.OnCarClicked(carId))
+                }
             )
-
-            else -> {}
+            else -> {
+            }
         }
     }
 

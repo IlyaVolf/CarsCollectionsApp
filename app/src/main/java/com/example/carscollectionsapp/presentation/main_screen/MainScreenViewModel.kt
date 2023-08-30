@@ -6,6 +6,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.carscollectionsapp.domain.CarsRepository
 import com.example.carscollectionsapp.domain.entities.Car
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEffect
+import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEvent
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenState
 import com.example.carscollectionsapp.utils.listToString
 import dagger.hilt.android.lifecycle.HiltViewModel
@@ -82,6 +83,26 @@ class MainScreenViewModel @Inject constructor(
             }
         } catch (e: Exception) {
             _state.value = MainScreenState.Error
+        }
+    }
+
+    fun onEvent(event: MainScreenEvent) {
+        when (event) {
+            is MainScreenEvent.AddNewCarClicked -> onAddNewCocktailClicked()
+
+            is MainScreenEvent.OnCarClicked -> onCocktailClicked(event.id)
+        }
+    }
+
+    private fun onAddNewCocktailClicked() {
+        viewModelScope.launch {
+            _effect.emit(MainScreenEffect.NavigateToCarAddScreen)
+        }
+    }
+
+    private fun onCocktailClicked(id: Long) {
+        viewModelScope.launch {
+            _effect.emit(MainScreenEffect.NavigateToCarDetailsScreen(id))
         }
     }
 
