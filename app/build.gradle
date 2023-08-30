@@ -61,6 +61,7 @@ dependencies {
     def nav_version = "2.5.0"
     def room_version = "2.5.2"
     def hilt_version = "2.47"
+    def accompanistVersion = "0.31.2-alpha"
 
     implementation 'androidx.core:core-ktx:1.10.1'
     implementation 'androidx.lifecycle:lifecycle-runtime-ktx:2.6.1'
@@ -77,11 +78,17 @@ dependencies {
     // Di
     kapt "com.google.dagger:hilt-compiler:$hilt_version"
     implementation "com.google.dagger:hilt-android:$hilt_version"
+    implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
     // Navigation
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
     implementation "androidx.navigation:navigation-compose:$nav_version"
+
+    // Accompanist
+    implementation "com.google.accompanist:accompanist-navigation-animation:$accompanistVersion"
+    implementation "com.google.accompanist:accompanist-systemuicontroller:$accompanistVersion"
+
 
     // Room
     implementation "androidx.room:room-runtime:$room_version"
@@ -99,4 +106,5 @@ dependencies {
 
     // Tools
     implementation "com.github.bumptech.glide:glide:4.12.0"
+
 }
