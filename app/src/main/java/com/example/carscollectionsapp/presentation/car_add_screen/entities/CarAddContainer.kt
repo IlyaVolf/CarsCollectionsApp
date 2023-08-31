@@ -1,27 +1,16 @@
 package com.example.carscollectionsapp.presentation.car_add_screen.entities
 
+import com.example.carscollectionsapp.presentation.entities.TextFieldState
+
 data class CarAddContainer(
     val nameString: String,
     val photoString: String?,
     val yearString: String,
     val engineCapacityString: String,
-    val nameState: NameState,
-    val yearState: YearState,
-    val engineCapacityState: EngineCapacityState
+    val nameState: TextFieldState,
+    val yearState: TextFieldState,
+    val engineCapacityState: TextFieldState
 ) {
-
-    enum class NameState {
-        OK, EMPTY
-    }
-
-    enum class YearState {
-        OK, EMPTY, INVALID
-    }
-
-    enum class EngineCapacityState {
-        OK, EMPTY, INVALID
-    }
-
     companion object {
 
         fun newInstance(): CarAddContainer = CarAddContainer(
@@ -29,9 +18,9 @@ data class CarAddContainer(
             photoString = "",
             yearString = "",
             engineCapacityString = "",
-            nameState = NameState.EMPTY,
-            yearState = YearState.EMPTY,
-            engineCapacityState = EngineCapacityState.EMPTY
+            nameState = TextFieldState.EMPTY,
+            yearState = TextFieldState.EMPTY,
+            engineCapacityState = TextFieldState.EMPTY
         )
 
     }

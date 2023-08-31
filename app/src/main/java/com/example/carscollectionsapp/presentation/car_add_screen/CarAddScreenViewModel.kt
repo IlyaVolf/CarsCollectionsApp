@@ -8,6 +8,7 @@ import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAd
 import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenEffect
 import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenEvent
 import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenState
+import com.example.carscollectionsapp.presentation.entities.TextFieldState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -125,13 +126,13 @@ class CarAddScreenViewModel @Inject constructor(
     private fun validateName(carAddContainer: CarAddContainer): Boolean {
         if (carAddContainer.nameString.isBlank()) {
             _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                nameState = CarAddContainer.NameState.EMPTY
+                nameState = TextFieldState.EMPTY
             ))
             return false
         }
 
         _state.value = CarAddScreenState.Default(carAddContainer.copy(
-            nameState = CarAddContainer.NameState.OK
+            nameState = TextFieldState.OK
         ))
         return true
     }
@@ -139,20 +140,20 @@ class CarAddScreenViewModel @Inject constructor(
     private fun validateYear(carAddContainer: CarAddContainer): Boolean {
         if (carAddContainer.yearString.isBlank()) {
             _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                yearState = CarAddContainer.YearState.EMPTY
+                yearState = TextFieldState.EMPTY
             ))
             return false
         }
 
         if (carAddContainer.yearString.toIntOrNull() == null) {
             _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                yearState = CarAddContainer.YearState.INVALID
+                yearState = TextFieldState.INVALID
             ))
             return false
         }
 
         _state.value = CarAddScreenState.Default(carAddContainer.copy(
-            nameState = CarAddContainer.NameState.OK
+            nameState = TextFieldState.OK
         ))
         return true
     }
@@ -160,20 +161,20 @@ class CarAddScreenViewModel @Inject constructor(
     private fun validateEngineCapacity(carAddContainer: CarAddContainer): Boolean {
         if (carAddContainer.engineCapacityString.isBlank()) {
             _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                engineCapacityState = CarAddContainer.EngineCapacityState.EMPTY
+                engineCapacityState = TextFieldState.EMPTY
             ))
             return false
         }
 
         if (carAddContainer.engineCapacityString.toFloatOrNull() == null) {
             _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                engineCapacityState = CarAddContainer.EngineCapacityState.INVALID
+                engineCapacityState = TextFieldState.INVALID
             ))
             return false
         }
 
         _state.value = CarAddScreenState.Default(carAddContainer.copy(
-            engineCapacityState = CarAddContainer.EngineCapacityState.OK
+            engineCapacityState = TextFieldState.OK
         ))
         return true
     }
