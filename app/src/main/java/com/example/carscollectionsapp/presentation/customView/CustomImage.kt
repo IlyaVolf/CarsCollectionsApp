@@ -40,7 +40,6 @@ fun CustomImage(
                         painter = painterResource(R.drawable.image_placeholder),
                         contentDescription = null,
                         contentScale = ContentScale.Crop,
-                        modifier = Modifier.wrapContentSize()
                     )
                 }
             }
@@ -55,7 +54,6 @@ fun CustomImage(
                 painter = painterResource(R.drawable.image_placeholder),
                 contentDescription = null,
                 contentScale = ContentScale.Crop,
-                modifier = Modifier.wrapContentSize()
             )
         }
     }
