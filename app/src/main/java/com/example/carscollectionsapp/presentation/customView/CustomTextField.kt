@@ -9,6 +9,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
+import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
@@ -27,6 +28,7 @@ fun CustomTextField(
     keyboardType: KeyboardType = KeyboardType.Text,
     onValueChange: (String) -> Unit,
     state: TextFieldState,
+    imeAction: ImeAction = ImeAction.Go,
     isNecessaryField: Boolean
 ) {
     OutlinedTextField(
@@ -51,6 +53,7 @@ fun CustomTextField(
                         Text(text = stringResource(R.string.optional_field))
                     }
                 }
+
                 TextFieldState.OK -> {}
                 TextFieldState.EMPTY -> {
                     if (isNecessaryField) {
@@ -67,6 +70,7 @@ fun CustomTextField(
         },
         keyboardOptions = KeyboardOptions(
             keyboardType = keyboardType,
+            imeAction = imeAction
         ),
         shape = RoundedCornerShape(32.dp)
     )
