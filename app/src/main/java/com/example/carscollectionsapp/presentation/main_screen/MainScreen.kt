@@ -49,7 +49,7 @@ fun MainScreen(
         when (effect) {
             MainScreenEffect.NavigateToCarAddScreen -> {
                 navController.navigate(
-                    CarsAppScreens.CarDetailsScreen.passArguments(-1L)
+                    CarsAppScreens.CarAddScreen.route
                 )
             }
             is MainScreenEffect.NavigateToCarDetailsScreen -> {
