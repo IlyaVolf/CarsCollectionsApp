@@ -4,10 +4,12 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.MaterialTheme
@@ -45,7 +47,7 @@ fun CarDetailsScreenSuccessful(
             )
 
             LazyColumn(
-                horizontalAlignment = Alignment.CenterHorizontally
+                modifier = Modifier.padding(horizontal = 16.dp)
             ) {
 
                 item {
@@ -53,7 +55,7 @@ fun CarDetailsScreenSuccessful(
                         text = car.name,
                         modifier = Modifier
                             .fillMaxWidth()
-                            .padding(horizontal = 16.dp, vertical = 8.dp),
+                            .padding(vertical = 8.dp),
                         style = MaterialTheme.typography.headlineLarge,
                         textAlign = TextAlign.Start
                     )
@@ -64,17 +66,17 @@ fun CarDetailsScreenSuccessful(
                         Text(
                             text = stringResource(R.string.production_year),
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                                .padding(vertical = 8.dp),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Start
                         )
 
+                        Spacer(modifier = Modifier.width(8.dp))
+
                         Text(
                             text = car.year.toString(),
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                                .padding(vertical = 8.dp),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Start
                         )
@@ -86,17 +88,17 @@ fun CarDetailsScreenSuccessful(
                         Text(
                             text = stringResource(R.string.engine_capacity),
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                                .padding(vertical = 8.dp),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Start
                         )
 
+                        Spacer(modifier = Modifier.width(8.dp))
+
                         Text(
                             text = car.engineCapacity.toString(),
                             modifier = Modifier
-                                .fillMaxWidth()
-                                .padding(horizontal = 16.dp, vertical = 8.dp),
+                                .padding(vertical = 8.dp),
                             style = MaterialTheme.typography.bodyMedium,
                             textAlign = TextAlign.Start
                         )
