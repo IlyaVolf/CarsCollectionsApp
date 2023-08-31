@@ -53,7 +53,8 @@ fun CarItem(
                 imageModel = { R.drawable.image_placeholder },
                 modifier = Modifier
                     .clip(MaterialTheme.shapes.extraLarge)
-                    .size(180.dp),
+                    .size(180.dp)
+                    .padding(4.dp),
                 previewPlaceholder = R.drawable.image_placeholder,
 
             )
