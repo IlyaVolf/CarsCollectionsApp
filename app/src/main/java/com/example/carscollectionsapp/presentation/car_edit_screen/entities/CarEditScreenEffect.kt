@@ -4,6 +4,8 @@ sealed class CarEditScreenEffect {
 
     data object NavigateBackOnSuccessAdding : CarEditScreenEffect()
 
+    data object NavigateBackOnSuccessDeleting : CarEditScreenEffect()
+
     data object NavigateBack : CarEditScreenEffect()
 
 }

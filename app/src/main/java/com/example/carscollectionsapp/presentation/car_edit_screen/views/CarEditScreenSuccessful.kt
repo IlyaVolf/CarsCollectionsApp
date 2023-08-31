@@ -29,6 +29,7 @@ import com.example.carscollectionsapp.presentation.car_edit_screen.entities.CarE
 import com.example.carscollectionsapp.presentation.customView.CustomButton
 import com.example.carscollectionsapp.presentation.customView.CustomImage
 import com.example.carscollectionsapp.presentation.customView.CustomTextField
+import com.example.carscollectionsapp.presentation.theme.Red
 
 @Composable
 fun CarEditScreenSuccessful(
@@ -118,6 +119,16 @@ fun CarEditScreenSuccessful(
             onClick = {
                 onAction(CarEditScreenEvent.OnSaveClicked)
             },
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(vertical = 4.dp)
+        )
+
+        CustomButton(
+            text = stringResource(R.string.delete),
+            outlined = true,
+            onClick = { onAction(CarEditScreenEvent.OnDeleteClicked) },
+            color = Red,
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(vertical = 4.dp)

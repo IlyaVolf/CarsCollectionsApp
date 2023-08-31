@@ -13,4 +13,5 @@
     <string name="save">Save</string>
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
+    <string name="delete">Delete</string>
 </resources>

@@ -5,12 +5,14 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
+import com.example.carscollectionsapp.R
 import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenEvent
 import com.example.carscollectionsapp.presentation.car_edit_screen.entities.CarEditScreenEffect
 import com.example.carscollectionsapp.presentation.car_edit_screen.entities.CarEditScreenEvent
 import com.example.carscollectionsapp.presentation.car_edit_screen.entities.CarEditScreenState
 import com.example.carscollectionsapp.presentation.car_edit_screen.views.CarEditScreenLoading
 import com.example.carscollectionsapp.presentation.car_edit_screen.views.CarEditScreenSuccessful
+import com.example.carscollectionsapp.presentation.navigation.CarsAppScreens
 import com.example.carscollectionsapp.utils.collectAsEffect
 
 @Composable
@@ -34,6 +36,10 @@ fun CarEditScreen(
 
             CarEditScreenEffect.NavigateBackOnSuccessAdding -> {
                 navController.popBackStack()
+            }
+
+            CarEditScreenEffect.NavigateBackOnSuccessDeleting -> {
+                navController.popBackStack(CarsAppScreens.CarsListScreen.route, false)
             }
         }
     }

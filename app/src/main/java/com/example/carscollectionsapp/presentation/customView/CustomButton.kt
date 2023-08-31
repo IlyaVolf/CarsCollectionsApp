@@ -19,6 +19,7 @@ fun CustomButton(
     modifier: Modifier = Modifier,
     outlined: Boolean = false,
     onClick: () -> Unit,
+    color: Color = MaterialTheme.colorScheme.primary,
     text: String
 ) {
     when(outlined) {
@@ -28,9 +29,9 @@ fun CustomButton(
                 onClick = onClick,
                 colors = ButtonDefaults.outlinedButtonColors(
                     containerColor = MaterialTheme.colorScheme.onPrimary,
-                    contentColor = MaterialTheme.colorScheme.primary
+                    contentColor = color
                 ),
-                border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
+                border = BorderStroke(1.dp, color)
             ) {
                 Text(
                     text = text,
@@ -44,7 +45,7 @@ fun CustomButton(
                 onClick = onClick,
                 modifier = modifier,
                 colors = ButtonDefaults.filledTonalButtonColors(
-                    containerColor = MaterialTheme.colorScheme.primary,
+                    containerColor = color,
                     contentColor = Color.White
                 )
             ) {

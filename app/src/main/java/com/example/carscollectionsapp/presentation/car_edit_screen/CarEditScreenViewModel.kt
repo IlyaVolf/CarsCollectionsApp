@@ -45,6 +45,7 @@ class CarEditScreenViewModel @Inject constructor(
             is CarEditScreenEvent.OnEngineCapacityChanged -> onEngineCapacityChanged(event.newEngineCapacityString)
             is CarEditScreenEvent.OnSaveClicked -> onSaveClicked()
             is CarEditScreenEvent.OnCancelClicked -> onCancelClicked()
+            is CarEditScreenEvent.OnDeleteClicked -> onDeleteClicked()
         }
     }
 
@@ -61,7 +62,7 @@ class CarEditScreenViewModel @Inject constructor(
             _state.value = CarEditScreenState.Error(e)
         }
     }
-    
+
     private fun onEnterScreen(id: Long) = viewModelScope.launch {
         carId = id
         load()
@@ -128,9 +129,9 @@ class CarEditScreenViewModel @Inject constructor(
     }
 
 
-    private fun onSaveClicked() = viewModelScope.launch {
+    private fun onSaveClicked() {
         if (state.value !is CarEditScreenState.Successful) {
-            return@launch
+            return
         }
 
         val carAddContainer = (state.value as CarEditScreenState.Successful).carAddContainer
@@ -153,19 +154,30 @@ class CarEditScreenViewModel @Inject constructor(
                 )
             }
 
-            return@launch
+            return
 
         }
 
         save(carAddContainer)
     }
 
-    private suspend fun save(carAddContainer: CarEditContainer) {
+    private fun save(carAddContainer: CarEditContainer) = viewModelScope.launch {
         try {
             _state.value = CarEditScreenState.Saving
-            val car = getCarInstance(carAddContainer) ?: return
+            val car = getCarInstance(carAddContainer) ?: return@launch
             carsRepository.updateCar(car)
             _effect.emit(CarEditScreenEffect.NavigateBackOnSuccessAdding)
+        } catch (e: Exception) {
+            _state.value = CarEditScreenState.Error(e)
+        }
+    }
+
+    private fun onDeleteClicked() = viewModelScope.launch {
+        try {
+            _state.value = CarEditScreenState.Saving
+            val car = car ?: return@launch
+            carsRepository.deleteCar(car)
+            _effect.emit(CarEditScreenEffect.NavigateBackOnSuccessDeleting)
         } catch (e: Exception) {
             _state.value = CarEditScreenState.Error(e)
         }
