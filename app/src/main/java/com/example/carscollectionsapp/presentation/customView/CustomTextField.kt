@@ -1,5 +1,6 @@
 package com.example.carscollectionsapp.presentation.customView
 
+import android.util.Log
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -22,13 +23,14 @@ fun CustomTextField(
     minHeight: Dp = Dp.Unspecified,
     label: String,
     value: String,
-    singleLine: Boolean = true,
+    singleLine: Boolean,
     keyboardType: KeyboardType = KeyboardType.Text,
     onValueChange: (String) -> Unit,
     state: TextFieldState,
-    isNecessaryField: Boolean = false
+    isNecessaryField: Boolean
 ) {
     OutlinedTextField(
+        modifier = modifier,
         value = value,
         onValueChange = onValueChange,
         label = {
@@ -37,9 +39,18 @@ fun CustomTextField(
             )
         },
         singleLine = singleLine,
-        isError = !((state == TextFieldState.OK) || (state == TextFieldState.EMPTY && !isNecessaryField)),
+        isError = (state != TextFieldState.OK && state != TextFieldState.INIT).apply {
+            Log.d("ABCD", state.toString())
+        },
         supportingText = {
             when (state) {
+                TextFieldState.INIT -> {
+                    if (isNecessaryField) {
+                        Text(text = stringResource(R.string.necessary_field))
+                    } else {
+                        Text(text = stringResource(R.string.optional_field))
+                    }
+                }
                 TextFieldState.OK -> {}
                 TextFieldState.EMPTY -> {
                     if (isNecessaryField) {
@@ -48,6 +59,7 @@ fun CustomTextField(
                         Text(text = stringResource(R.string.optional_field))
                     }
                 }
+
                 TextFieldState.INVALID -> {
                     Text(text = stringResource(R.string.invalid_value))
                 }
@@ -63,5 +75,12 @@ fun CustomTextField(
 @Preview
 @Composable
 fun Test() {
-    CustomTextField(label = "daad", value = "adad", onValueChange = {}, state = TextFieldState.OK)
+    CustomTextField(
+        label = "daad",
+        value = "adad",
+        onValueChange = {},
+        state = TextFieldState.OK,
+        isNecessaryField = true,
+        singleLine = true
+    )
 }
