@@ -1,4 +1,4 @@
-package com.example.carscollectionsapp.presentation.default
+package com.example.carscollectionsapp.presentation.customView
 
 import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.runtime.Composable

@@ -1,14 +1,4 @@
-package com.example.carscollectionsapp.presentation.default
-
-import android.graphics.ColorFilter
-import androidx.compose.foundation.clickable
-import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.material.icons.Icons
-import androidx.compose.material3.Icon
-import androidx.compose.material3.Surface
-import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
+package com.example.carscollectionsapp.presentation.customView
 
 /*@Composable
 fun CustomImage(
