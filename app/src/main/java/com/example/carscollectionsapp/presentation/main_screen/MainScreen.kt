@@ -1,13 +1,19 @@
 package com.example.carscollectionsapp.presentation.main_screen
 
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.wrapContentWidth
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
+import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
 import androidx.compose.material3.FloatingActionButton
@@ -18,6 +24,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
@@ -27,6 +34,8 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.carscollectionsapp.R
+import com.example.carscollectionsapp.presentation.customView.CustomTextField
+import com.example.carscollectionsapp.presentation.entities.TextFieldState
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEffect
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEvent
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenState
@@ -82,33 +91,31 @@ fun MainScreen(
                 .fillMaxWidth()
                 .padding(paddingValues = paddingValues)
         ) {
-            TextField(
-                // on below line we are specifying value
-                // for our message text field.
-                value = search.value,
-                // on below line we are adding on
-                // value change for text field.
-                onValueChange = { viewModel.searchQuery.value = it },
-                // on below line we are adding place holder
-                // as text as "Enter your email"
-                placeholder = {
-                    Text(
-                        text = "Enter your location to search",
-                        color = Color(0xFF383838)
-                    )
-                },
-                // on below line we are adding modifier to it
-                // and adding padding to it and filling max width
-                modifier = Modifier
-                    .padding(16.dp)
-                    .fillMaxWidth()
-                    .height(64.dp),
-                // on below line we are adding text style
-                // specifying color and font size to it.
-                textStyle = TextStyle(color = Color.Black, fontSize = 15.sp),
-                // on below line we are adding single line to it.
-                singleLine = true,
-            )
+
+            Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically) {
+                CustomTextField(
+                    modifier = Modifier.wrapContentWidth(),
+                    label = stringResource(R.string.search),
+                    value = search.value,
+                    singleLine = true,
+                    onValueChange = { viewModel.searchQuery.value = it },
+                    state = TextFieldState.OK,
+                    isNecessaryField = false
+                )
+
+                Spacer(modifier = Modifier.width(16.dp))
+
+                Icon(
+                    imageVector = Icons.Default.Settings,
+                    contentDescription = null,
+                    modifier = Modifier.size(32.dp).padding(8.dp).clickable {
+
+                    },
+                    tint = MaterialTheme.colorScheme.primary
+                )
+
+            }
 
             when (state.value) {
                 is MainScreenState.Loading -> MainScreenLoading()

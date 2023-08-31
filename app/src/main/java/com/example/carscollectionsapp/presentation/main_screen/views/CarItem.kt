@@ -36,7 +36,7 @@ fun CarItem(
     Card(
         modifier = Modifier
             .fillMaxWidth()
-            .padding(4.dp)
+            .padding(8.dp)
             .background(color = MaterialTheme.colorScheme.background),
         shape = RoundedCornerShape(24.dp),
         elevation = CardDefaults.cardElevation(

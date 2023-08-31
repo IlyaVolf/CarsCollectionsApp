@@ -24,7 +24,7 @@ fun MainScreenSuccessfulState(
         else -> 1
     }
 
-    LazyVerticalGrid(columns = GridCells.Fixed(gridCellsCount), modifier = modifier.padding(horizontal = 4.dp)) {
+    LazyVerticalGrid(columns = GridCells.Fixed(gridCellsCount), modifier = modifier.padding(horizontal = 0.dp)) {
         items(cars, key = { it.id }) {
             CarItem(
                 car = it,
