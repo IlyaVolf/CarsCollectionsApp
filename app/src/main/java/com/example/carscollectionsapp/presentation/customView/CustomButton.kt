@@ -27,7 +27,7 @@ fun CustomButton(
                 modifier = modifier,
                 onClick = onClick,
                 colors = ButtonDefaults.outlinedButtonColors(
-                    containerColor = MaterialTheme.colorScheme.background,
+                    containerColor = MaterialTheme.colorScheme.onPrimary,
                     contentColor = MaterialTheme.colorScheme.primary
                 ),
                 border = BorderStroke(1.dp, MaterialTheme.colorScheme.primary)
