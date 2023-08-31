@@ -4,7 +4,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Edit
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.FabPosition
@@ -26,8 +25,6 @@ import com.example.carscollectionsapp.presentation.car_details_screen.entities.C
 import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenState
 import com.example.carscollectionsapp.presentation.car_details_screen.views.CarDetailsScreenLoading
 import com.example.carscollectionsapp.presentation.car_details_screen.views.CarDetailsScreenSuccessful
-import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEvent
-import com.example.carscollectionsapp.presentation.navigation.CarsAppScreens
 import com.example.carscollectionsapp.utils.collectAsEffect
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,9 +44,9 @@ fun CarDetailsScreen(
     viewModel.effect.collectAsEffect { effect ->
         when (effect) {
             is CarDetailsScreenEffect.NavigateToCarEditScreen -> {
-                navController.navigate(
+               /* navController.navigate(
                     CarsAppScreens.CarAddEditScreen.passArguments(effect.carId)
-                )
+                )*/
             }
 
             else -> {}
