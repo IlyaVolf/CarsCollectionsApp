@@ -6,4 +6,6 @@ sealed class MainScreenEffect {
 
     data class NavigateToCarDetailsScreen(val carId: Long) : MainScreenEffect()
 
+    data object NavigateToSettingsScreen : MainScreenEffect()
+
 }

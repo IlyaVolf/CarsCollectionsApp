@@ -61,7 +61,7 @@ class MainScreenViewModel @Inject constructor(
                 Car(
                     0,
                     "Lada Granta",
-                    null,
+                    "https://foto.carexpert.ru/img/foto1680/vaz/vazgr038.jpg",
                     2012,
                     1.6F,
                     Calendar.getInstance().timeInMillis
@@ -88,9 +88,11 @@ class MainScreenViewModel @Inject constructor(
 
     fun onEvent(event: MainScreenEvent) {
         when (event) {
-            is MainScreenEvent.AddNewCarClicked -> onAddNewCocktailClicked()
+            is MainScreenEvent.OnAddNewCarClicked -> onAddNewCocktailClicked()
 
             is MainScreenEvent.OnCarClicked -> onCocktailClicked(event.id)
+
+            MainScreenEvent.OnSettingsClicked -> onSettingsClicked()
         }
     }
 
@@ -103,6 +105,12 @@ class MainScreenViewModel @Inject constructor(
     private fun onCocktailClicked(id: Long) {
         viewModelScope.launch {
             _effect.emit(MainScreenEffect.NavigateToCarDetailsScreen(id))
+        }
+    }
+
+    private fun onSettingsClicked() {
+        viewModelScope.launch {
+            _effect.emit(MainScreenEffect.NavigateToSettingsScreen)
         }
     }
 
