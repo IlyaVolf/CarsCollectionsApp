@@ -19,6 +19,8 @@ sealed class CarsAppScreens(val route: String) {
         }
     }
 
+    data object SettingsScreen : CarsAppScreens(route = "settings_screen")
+
 
     companion object {
         const val carIdArgument = "car_id"

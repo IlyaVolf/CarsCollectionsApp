@@ -8,4 +8,9 @@
     <string name="necessary_field">Necessary field</string>
     <string name="invalid_value">Invalid value</string>
     <string name="car_name">Car name</string>
+    <string name="search_by_car_name">Search by car name</string>
+    <string name="search">Search</string>
+    <string name="save">Save</string>
+    <string name="cancel">Cancel</string>
+    <string name="reset">Reset</string>
 </resources>

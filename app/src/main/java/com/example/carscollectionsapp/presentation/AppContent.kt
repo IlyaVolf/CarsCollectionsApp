@@ -9,6 +9,7 @@ import com.example.carscollectionsapp.presentation.car_add_screen.CarAddScreen
 import com.example.carscollectionsapp.presentation.car_details_screen.CarDetailsScreen
 import com.example.carscollectionsapp.presentation.main_screen.MainScreen
 import com.example.carscollectionsapp.presentation.navigation.CarsAppScreens
+import com.example.carscollectionsapp.presentation.settings.SettingsScreen
 import com.google.accompanist.navigation.animation.AnimatedNavHost
 import com.google.accompanist.navigation.animation.composable
 import com.google.accompanist.navigation.animation.rememberAnimatedNavController
@@ -42,6 +43,10 @@ fun AppContent() {
 
         composable(route = CarsAppScreens.CarAddScreen.route) {
             CarAddScreen(navController = navController)
+        }
+
+        composable(route = CarsAppScreens.SettingsScreen.route) {
+            SettingsScreen(navController = navController)
         }
 
         /*composable(
