@@ -1,4 +1,4 @@
-package com.example.carscollectionsapp
+package com.example.carscollectionsapp.data.repositories
 
 import com.example.carscollectionsapp.data.room.CarsDao
 import com.example.carscollectionsapp.data.room.mappers.CarMapper
