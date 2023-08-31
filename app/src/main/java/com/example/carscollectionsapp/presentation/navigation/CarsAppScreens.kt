@@ -4,7 +4,9 @@ sealed class CarsAppScreens(val route: String) {
 
     data object CarsListScreen : CarsAppScreens(route = "main_screen")
 
-    data object CarAddEditScreen :CarsAppScreens(route = "car_add_edit_screen/{${carIdArgument}}") {
+    data object CarAddScreen : CarsAppScreens(route = "car_add_screen")
+
+    data object CarEditScreen : CarsAppScreens(route = "car_edit_screen/{${carIdArgument}}") {
 
         fun passArguments(id: Long): String {
             return this.route.replace("{${carIdArgument}}", id.toString())
