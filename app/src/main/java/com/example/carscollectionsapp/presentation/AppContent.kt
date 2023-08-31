@@ -4,7 +4,7 @@ import androidx.compose.animation.ExperimentalAnimationApi
 import androidx.compose.runtime.Composable
 import androidx.navigation.NavType
 import androidx.navigation.navArgument
-import com.example.carscollectionsapp.presentation.car_add_edit_screen.CarAddEditScreen
+import com.example.carscollectionsapp.presentation.car_edit_screen.CarEditScreen
 import com.example.carscollectionsapp.presentation.car_add_screen.CarAddScreen
 import com.example.carscollectionsapp.presentation.car_details_screen.CarDetailsScreen
 import com.example.carscollectionsapp.presentation.main_screen.MainScreen
@@ -49,7 +49,7 @@ fun AppContent() {
             SettingsScreen(navController = navController)
         }
 
-        /*composable(
+        composable(
             route = CarsAppScreens.CarEditScreen.route,
             arguments = listOf(
                 navArgument(CarsAppScreens.carIdArgument) {
@@ -62,7 +62,7 @@ fun AppContent() {
                 carId = it.arguments?.getLong(CarsAppScreens.carIdArgument)!!,
                 navController = navController
             )
-        }*/
+        }
 
     }
 }
