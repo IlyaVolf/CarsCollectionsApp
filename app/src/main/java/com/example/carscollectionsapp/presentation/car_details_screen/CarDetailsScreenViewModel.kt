@@ -14,11 +14,14 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import javax.inject.Inject
+import kotlin.properties.Delegates
 
 @HiltViewModel
 class CarDetailsScreenViewModel @Inject constructor(
     private val carsRepository: CarsRepository
 ) : ViewModel() {
+
+    private var carId by Delegates.notNull<Long>()
 
     private val _effect = MutableSharedFlow<CarDetailsScreenEffect>()
     val effect = _effect.asSharedFlow()
@@ -34,18 +37,18 @@ class CarDetailsScreenViewModel @Inject constructor(
         }
     }
 
-    private fun onEnterScreen(carId: Long) {
-        load(carId)
+    private fun onEnterScreen(id: Long) {
+        carId = id
+        load()
     }
-
 
     private fun onEditClicked() {
         viewModelScope.launch {
-            _effect.emit(CarDetailsScreenEffect.NavigateToCarEditScreen)
+            _effect.emit(CarDetailsScreenEffect.NavigateToCarEditScreen(carId))
         }
     }
 
-    private fun load(carId: Long) = viewModelScope.launch {
+    private fun load() = viewModelScope.launch {
         try {
             _state.value = CarDetailsScreenState.Loading
 
