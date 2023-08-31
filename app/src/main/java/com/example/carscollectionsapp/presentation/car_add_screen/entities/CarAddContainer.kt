@@ -18,9 +18,9 @@ data class CarAddContainer(
             photoString = "",
             yearString = "",
             engineCapacityString = "",
-            nameState = TextFieldState.EMPTY,
-            yearState = TextFieldState.EMPTY,
-            engineCapacityState = TextFieldState.EMPTY
+            nameState = TextFieldState.INIT,
+            yearState = TextFieldState.INIT,
+            engineCapacityState = TextFieldState.INIT
         )
 
     }

@@ -4,4 +4,8 @@
     <string name="production_year">Year</string>
     <string name="engine_capacity">Engine capacity</string>
     <string name="description">description</string>
+    <string name="optional_field">Optional field</string>
+    <string name="necessary_field">Necessary field</string>
+    <string name="invalid_value">Invalid value</string>
+    <string name="car_name">Car name</string>
 </resources>

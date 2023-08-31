@@ -41,6 +41,7 @@ class CarAddScreenViewModel @Inject constructor(
             is CarAddScreenEvent.OnPhotoChanged -> onPhotoChanged(event.newPhotoUriString)
             is CarAddScreenEvent.OnEngineCapacityChanged -> onEngineCapacityChanged(event.newEngineCapacityString)
             is CarAddScreenEvent.OnSaveClicked -> onSaveClicked()
+            CarAddScreenEvent.OnCancelClicked -> onCancelClicked()
         }
     }
 
@@ -100,16 +101,44 @@ class CarAddScreenViewModel @Inject constructor(
         }
     }
 
+    private fun onCancelClicked() = viewModelScope.launch {
+        _effect.emit(CarAddScreenEffect.NavigateBack)
+    }
+
+
     private fun onSaveClicked() = viewModelScope.launch {
         if (state.value !is CarAddScreenState.Default) {
             return@launch
         }
 
         val carAddContainer = (state.value as CarAddScreenState.Default).carAddContainer
-        if (!validate(carAddContainer)) {
+
+        val newNameState = getNameState(carAddContainer)
+        val newYearState = getYearState(carAddContainer)
+        val newEngineCapacityState = getEngineCapacityState(carAddContainer)
+
+        if (!(newNameState == TextFieldState.OK &&
+                    newYearState == TextFieldState.OK &&
+                    newEngineCapacityState == TextFieldState.OK)
+        ) {
+            _state.update {
+                CarAddScreenState.Default(
+                    (it as CarAddScreenState.Default).carAddContainer.copy(
+                        nameState = newNameState,
+                        yearState = newYearState,
+                        engineCapacityState = newEngineCapacityState
+                    )
+                )
+            }
+
             return@launch
+
         }
 
+        save(carAddContainer)
+    }
+
+    private suspend fun save(carAddContainer: CarAddContainer) {
         try {
             _state.value = CarAddScreenState.Saving
             val car = getCarInstance(carAddContainer)
@@ -120,63 +149,36 @@ class CarAddScreenViewModel @Inject constructor(
         }
     }
 
-    private fun validate(carAddContainer: CarAddContainer): Boolean =
-        validateName(carAddContainer) && validateYear(carAddContainer) && validateEngineCapacity(carAddContainer)
-
-    private fun validateName(carAddContainer: CarAddContainer): Boolean {
+    private fun getNameState(carAddContainer: CarAddContainer): TextFieldState {
         if (carAddContainer.nameString.isBlank()) {
-            _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                nameState = TextFieldState.EMPTY
-            ))
-            return false
+            return TextFieldState.EMPTY
         }
 
-        _state.value = CarAddScreenState.Default(carAddContainer.copy(
-            nameState = TextFieldState.OK
-        ))
-        return true
+        return TextFieldState.OK
     }
 
-    private fun validateYear(carAddContainer: CarAddContainer): Boolean {
+    private fun getYearState(carAddContainer: CarAddContainer): TextFieldState {
         if (carAddContainer.yearString.isBlank()) {
-            _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                yearState = TextFieldState.EMPTY
-            ))
-            return false
+            return TextFieldState.EMPTY
         }
 
         if (carAddContainer.yearString.toIntOrNull() == null) {
-            _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                yearState = TextFieldState.INVALID
-            ))
-            return false
+            return TextFieldState.INVALID
         }
 
-        _state.value = CarAddScreenState.Default(carAddContainer.copy(
-            nameState = TextFieldState.OK
-        ))
-        return true
+        return TextFieldState.OK
     }
 
-    private fun validateEngineCapacity(carAddContainer: CarAddContainer): Boolean {
+    private fun getEngineCapacityState(carAddContainer: CarAddContainer): TextFieldState {
         if (carAddContainer.engineCapacityString.isBlank()) {
-            _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                engineCapacityState = TextFieldState.EMPTY
-            ))
-            return false
+            return TextFieldState.EMPTY
         }
 
         if (carAddContainer.engineCapacityString.toFloatOrNull() == null) {
-            _state.value = CarAddScreenState.Default(carAddContainer.copy(
-                engineCapacityState = TextFieldState.INVALID
-            ))
-            return false
+            return TextFieldState.INVALID
         }
 
-        _state.value = CarAddScreenState.Default(carAddContainer.copy(
-            engineCapacityState = TextFieldState.OK
-        ))
-        return true
+        return TextFieldState.OK
     }
 
     private fun getCarInstance(carAddContainer: CarAddContainer): Car = Car(

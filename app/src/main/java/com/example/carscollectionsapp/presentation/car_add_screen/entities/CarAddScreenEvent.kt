@@ -10,6 +10,8 @@ sealed class CarAddScreenEvent {
 
     data class OnEngineCapacityChanged(val newEngineCapacityString: String) : CarAddScreenEvent()
 
+    data object OnCancelClicked : CarAddScreenEvent()
+
     data object OnSaveClicked : CarAddScreenEvent()
 
 }
