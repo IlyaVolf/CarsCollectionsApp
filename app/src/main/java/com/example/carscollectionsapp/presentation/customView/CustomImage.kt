@@ -1,5 +1,6 @@
 package com.example.carscollectionsapp.presentation.customView
 
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.wrapContentSize
@@ -17,31 +18,28 @@ import com.example.carscollectionsapp.R
 @Composable
 fun CustomImage(
     modifier: Modifier = Modifier,
-    onClick: () -> Unit = {},
+    onClick: (() -> Unit)? = null,
     uri: String?,
     colorFilter: ColorFilter? = null
 ) {
-    if (uri != null) {
+    if (!uri.isNullOrBlank()) {
         SubcomposeAsyncImage(
             model = uri,
             contentDescription = null,
             modifier = modifier
-                .clickable {
-                    onClick()
-                }
                 .fillMaxSize(),
             colorFilter = colorFilter,
             contentScale = ContentScale.Crop,
             error = {
                 Surface(
-                    modifier = modifier.clickable {
-                        onClick()
-                    }.fillMaxSize(),
+                    modifier = modifier
+                        .fillMaxSize(),
                     color = Color(0xFFEEEEEE),
                 ) {
-                    Icon(
+                    Image(
                         painter = painterResource(R.drawable.image_placeholder),
                         contentDescription = null,
+                        contentScale = ContentScale.Crop,
                         modifier = Modifier.wrapContentSize()
                     )
                 }
@@ -49,14 +47,14 @@ fun CustomImage(
         )
     } else {
         Surface(
-            modifier = modifier.clickable {
-                onClick()
-            }.fillMaxSize(),
+            modifier = modifier
+                .fillMaxSize(),
             color = Color(0xFFEEEEEE),
         ) {
-            Icon(
+            Image(
                 painter = painterResource(R.drawable.image_placeholder),
                 contentDescription = null,
+                contentScale = ContentScale.Crop,
                 modifier = Modifier.wrapContentSize()
             )
         }
