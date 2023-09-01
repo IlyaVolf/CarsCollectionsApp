@@ -6,6 +6,10 @@ sealed class CarEditScreenEffect {
 
     data object NavigateBackOnSuccessDeleting : CarEditScreenEffect()
 
+    data object OpenCancelDialog : CarEditScreenEffect()
+
+    data object OpenDeleteDialog : CarEditScreenEffect()
+
     data object NavigateBack : CarEditScreenEffect()
 
 }

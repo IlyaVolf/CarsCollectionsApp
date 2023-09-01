@@ -19,4 +19,8 @@
     <string name="duration">Duration</string>
     <string name="subscriptionPeriod">Subscription Period</string>
     <string name="price">Price</string>
+    <string name="cancel_warning">All unsaved data will be lost</string>
+    <string name="delete_warning">Are you sure you want to delete this car?</string>
+    <string name="cancel_ask">Cancel</string>
+    <string name="confirm">Comfirm</string>
 </resources>

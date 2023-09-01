@@ -46,6 +46,8 @@ class CarEditScreenViewModel @Inject constructor(
             is CarEditScreenEvent.OnSaveClicked -> onSaveClicked()
             is CarEditScreenEvent.OnCancelClicked -> onCancelClicked()
             is CarEditScreenEvent.OnDeleteClicked -> onDeleteClicked()
+            is CarEditScreenEvent.OnCancelConfirmClicked -> onCancelConfirmClicked()
+            is CarEditScreenEvent.OnDeleteConfirmClicked -> onDeleteConfirmClicked()
         }
     }
 
@@ -125,6 +127,10 @@ class CarEditScreenViewModel @Inject constructor(
     }
 
     private fun onCancelClicked() = viewModelScope.launch {
+        _effect.emit(CarEditScreenEffect.OpenCancelDialog)
+    }
+
+    private fun onCancelConfirmClicked() = viewModelScope.launch {
         _effect.emit(CarEditScreenEffect.NavigateBack)
     }
 
@@ -173,6 +179,10 @@ class CarEditScreenViewModel @Inject constructor(
     }
 
     private fun onDeleteClicked() = viewModelScope.launch {
+        _effect.emit(CarEditScreenEffect.OpenDeleteDialog)
+    }
+
+    private fun onDeleteConfirmClicked() = viewModelScope.launch {
         try {
             _state.value = CarEditScreenState.Saving
             val car = car ?: return@launch
