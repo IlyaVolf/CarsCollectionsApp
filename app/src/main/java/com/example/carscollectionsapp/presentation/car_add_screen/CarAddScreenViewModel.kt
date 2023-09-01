@@ -1,5 +1,6 @@
 package com.example.carscollectionsapp.presentation.car_add_screen
 
+import android.widget.Toast
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carscollectionsapp.domain.CarsRepository
@@ -41,7 +42,8 @@ class CarAddScreenViewModel @Inject constructor(
             is CarAddScreenEvent.OnPhotoChanged -> onPhotoChanged(event.newPhotoUriString)
             is CarAddScreenEvent.OnEngineCapacityChanged -> onEngineCapacityChanged(event.newEngineCapacityString)
             is CarAddScreenEvent.OnSaveClicked -> onSaveClicked()
-            CarAddScreenEvent.OnCancelClicked -> onCancelClicked()
+            is CarAddScreenEvent.OnCancelClicked -> onCancelClicked()
+            is CarAddScreenEvent.OnCancelConfirmClicked -> onCancelConfirmClicked()
         }
     }
 
@@ -102,6 +104,10 @@ class CarAddScreenViewModel @Inject constructor(
     }
 
     private fun onCancelClicked() = viewModelScope.launch {
+        _effect.emit(CarAddScreenEffect.OpenDialog)
+    }
+
+    private fun onCancelConfirmClicked() = viewModelScope.launch {
         _effect.emit(CarAddScreenEffect.NavigateBack)
     }
 

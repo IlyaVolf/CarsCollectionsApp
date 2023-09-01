@@ -4,6 +4,8 @@ sealed class CarAddScreenEffect {
 
     data object NavigateBack : CarAddScreenEffect()
 
+    data object OpenDialog : CarAddScreenEffect()
+
     data object NavigateBackOnSuccessAdding : CarAddScreenEffect()
 
 }

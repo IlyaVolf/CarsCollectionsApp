@@ -12,6 +12,8 @@ sealed class CarAddScreenEvent {
 
     data object OnCancelClicked : CarAddScreenEvent()
 
+    data object OnCancelConfirmClicked : CarAddScreenEvent()
+
     data object OnSaveClicked : CarAddScreenEvent()
 
 }
