@@ -31,7 +31,7 @@ import com.example.carscollectionsapp.presentation.customView.CustomImage
 import com.example.carscollectionsapp.presentation.customView.CustomTextField
 
 @Composable
-fun CarAddScreenSuccessful(
+fun CarAddScreenDefault(
     carAddContainer: CarAddContainer,
     modifier: Modifier = Modifier,
     onAction: (CarAddScreenEvent) -> Unit,

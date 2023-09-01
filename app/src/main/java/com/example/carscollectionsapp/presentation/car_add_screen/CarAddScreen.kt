@@ -1,13 +1,12 @@
 package com.example.carscollectionsapp.presentation.car_add_screen
 
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavController
 import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenEffect
 import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenState
-import com.example.carscollectionsapp.presentation.car_add_screen.views.CarAddScreenSuccessful
+import com.example.carscollectionsapp.presentation.car_add_screen.views.CarAddScreenDefault
 import com.example.carscollectionsapp.utils.collectAsEffect
 
 @Composable
@@ -31,7 +30,7 @@ fun CarAddScreen(
     }
 
     when (state.value) {
-        is CarAddScreenState.Default -> CarAddScreenSuccessful(
+        is CarAddScreenState.Default -> CarAddScreenDefault(
             carAddContainer = (state.value as CarAddScreenState.Default).carAddContainer,
             onAction = { event ->
                 viewModel.onEvent(event)
