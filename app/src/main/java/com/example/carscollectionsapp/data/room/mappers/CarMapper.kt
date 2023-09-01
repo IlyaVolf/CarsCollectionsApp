@@ -36,16 +36,4 @@ class CarMapper @Inject constructor() {
         dateAdded = car.dateAdded
     )
 
-    fun toCarDbEntityList(carList: List<Car>): List<CarDbEntity> =
-        carList.map { car ->
-            CarDbEntity(
-                id = car.id,
-                name = car.name,
-                photo = car.photo,
-                year = car.year,
-                engineCapacity = car.engineCapacity,
-                dateAdded = car.dateAdded
-            )
-        }
-
 }

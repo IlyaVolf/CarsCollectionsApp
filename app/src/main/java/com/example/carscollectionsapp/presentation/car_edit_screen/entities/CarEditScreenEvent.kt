@@ -1,7 +1,5 @@
 package com.example.carscollectionsapp.presentation.car_edit_screen.entities
 
-import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenEvent
-
 sealed class CarEditScreenEvent {
 
     data class OnEnterScreen(val carId: Long) : CarEditScreenEvent()

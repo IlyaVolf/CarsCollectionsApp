@@ -136,11 +136,3 @@ fun CarAddScreenDefault(
     }
 
 }
-
-@Preview(showBackground = true, showSystemUi = true)
-@Composable
-fun test() {
-    /*CarAddScreenSuccessful(
-        Car(1, "Lada Vesta", null, 2019, 1.6F, 0L)
-    )*/
-}

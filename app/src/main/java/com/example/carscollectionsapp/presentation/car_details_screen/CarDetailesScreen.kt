@@ -3,7 +3,9 @@ package com.example.carscollectionsapp.presentation.car_details_screen
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenEffect
 import com.example.carscollectionsapp.presentation.car_details_screen.entities.CarDetailsScreenEvent
@@ -25,13 +27,17 @@ fun CarDetailsScreen(
     }
 
     val state = viewModel.state.collectAsState()
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     viewModel.effect.collectAsEffect { effect ->
-        when (effect) {
-            is CarDetailsScreenEffect.NavigateToCarEditScreen -> {
-                navController.navigate(
-                    CarsAppScreens.CarEditScreen.passArguments(effect.carId)
-                )
+        val currentState = lifecycleOwner.lifecycle.currentState
+        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            when (effect) {
+                is CarDetailsScreenEffect.NavigateToCarEditScreen -> {
+                    navController.navigate(
+                        CarsAppScreens.CarEditScreen.passArguments(effect.carId)
+                    )
+                }
             }
         }
     }

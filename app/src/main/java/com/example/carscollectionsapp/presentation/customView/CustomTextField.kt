@@ -1,6 +1,5 @@
 package com.example.carscollectionsapp.presentation.customView
 
-import android.util.Log
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.foundation.text.KeyboardOptions
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -78,8 +77,8 @@ fun CustomTextField(
 @Composable
 fun Test() {
     CustomTextField(
-        label = "daad",
-        value = "adad",
+        label = "label",
+        value = "value",
         onValueChange = {},
         state = TextFieldState.OK,
         isNecessaryField = true,

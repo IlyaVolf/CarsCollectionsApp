@@ -10,7 +10,6 @@ import com.example.carscollectionsapp.domain.entities.SubscriptionState
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEffect
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEvent
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenState
-import com.example.carscollectionsapp.utils.listToString
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.MutableStateFlow

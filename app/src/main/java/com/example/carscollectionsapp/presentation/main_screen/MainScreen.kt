@@ -40,7 +40,6 @@ import com.example.carscollectionsapp.presentation.main_screen.views.MainScreenL
 import com.example.carscollectionsapp.presentation.main_screen.views.MainScreenSuccessfulState
 import com.example.carscollectionsapp.presentation.navigation.CarsAppScreens
 import com.example.carscollectionsapp.presentation.subscription.SubscriptionScreenPopUp
-import com.example.carscollectionsapp.presentation.subscription.views.SubscriptionScreenSuccessful
 import com.example.carscollectionsapp.utils.collectAsEffect
 
 @OptIn(ExperimentalMaterial3Api::class)

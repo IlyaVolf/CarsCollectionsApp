@@ -150,7 +150,7 @@ fun CarEditScreenSuccessful(
 
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
-fun test() {
+fun Test() {
     /*CarEditScreenSuccessful(
         Car(1, "Lada Vesta", null, 2019, 1.6F, 0L)
     )*/

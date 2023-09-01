@@ -1,6 +1,5 @@
 package com.example.carscollectionsapp.presentation.car_add_screen
 
-import android.widget.Toast
 import androidx.activity.compose.BackHandler
 import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
@@ -9,7 +8,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.hilt.navigation.compose.hiltViewModel
@@ -20,7 +18,6 @@ import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAd
 import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenEvent
 import com.example.carscollectionsapp.presentation.car_add_screen.entities.CarAddScreenState
 import com.example.carscollectionsapp.presentation.car_add_screen.views.CarAddScreenDefault
-import com.example.carscollectionsapp.presentation.subscription.entities.SubscriptionScreenEvent
 import com.example.carscollectionsapp.utils.collectAsEffect
 
 @Composable
@@ -80,7 +77,7 @@ fun CarAddScreen(
                         openDialog.value = false
                     }
                 ) {
-                    Text(text = stringResource(R.string.delete))
+                    Text(text = stringResource(R.string.confirm))
                 }
             },
             dismissButton = {
@@ -93,7 +90,7 @@ fun CarAddScreen(
                 }
             },
             title = { Text(text = stringResource(R.string.cancel)) },
-            text = { Text(text = stringResource(R.string.warning)) }
+            text = { Text(text = stringResource(R.string.cancel_warning)) }
         )
     }
 
