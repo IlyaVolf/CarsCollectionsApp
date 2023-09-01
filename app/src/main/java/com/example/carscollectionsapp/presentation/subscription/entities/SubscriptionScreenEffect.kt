@@ -2,9 +2,9 @@ package com.example.carscollectionsapp.presentation.subscription.entities
 
 sealed class SubscriptionScreenEffect {
 
-    data object NavigateBackOnSuccessPurchasing : SubscriptionScreenEffect()
+    data object CloseDialogOnSuccessPurchasing : SubscriptionScreenEffect()
 
-    data object NavigateBack : SubscriptionScreenEffect()
+    data object CloseDialog : SubscriptionScreenEffect()
 
 
 }

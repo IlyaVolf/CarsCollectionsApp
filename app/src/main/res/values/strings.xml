@@ -14,4 +14,9 @@
     <string name="cancel">Cancel</string>
     <string name="reset">Reset</string>
     <string name="delete">Delete</string>
+    <string name="buy">Buy</string>
+    <string name="no_thanks">No, thanks</string>
+    <string name="duration">Duration</string>
+    <string name="subscriptionPeriod">Subscription Period</string>
+    <string name="price">Price</string>
 </resources>
