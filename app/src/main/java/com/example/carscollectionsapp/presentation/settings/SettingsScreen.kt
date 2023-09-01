@@ -10,9 +10,11 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.example.carscollectionsapp.R
 import com.example.carscollectionsapp.presentation.customView.CustomButton
@@ -26,10 +28,15 @@ fun SettingsScreen(
     viewModel: SettingsScreenViewModel = hiltViewModel(),
 ) {
     val context = LocalContext.current
+    val lifecycleOwner = LocalLifecycleOwner.current
+
     viewModel.effect.collectAsEffect { effect ->
-        when (effect) {
-            SettingsScreenEffect.Reset -> {
-                Toast.makeText(context, "Reset", Toast.LENGTH_SHORT).show()
+        val currentState = lifecycleOwner.lifecycle.currentState
+        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            when (effect) {
+                SettingsScreenEffect.Reset -> {
+                    Toast.makeText(context, "Reset", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
