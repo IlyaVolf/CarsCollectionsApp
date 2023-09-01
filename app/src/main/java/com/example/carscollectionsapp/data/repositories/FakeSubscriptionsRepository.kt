@@ -27,8 +27,13 @@ class FakeSubscriptionsRepository @Inject constructor(
     private val preferences = context.getSharedPreferences(
         PREFERENCES_NAME, Context.MODE_PRIVATE
     )
-    override val subscriptionState =
+
+    private val subscriptionStateFlow =
         MutableStateFlow<SubscriptionState>(SubscriptionState.UnsubscribedState.newInstance())
+
+    override fun getSubscriptionStateFlow(): Flow<SubscriptionState> {
+        return subscriptionStateFlow
+    }
 
     init {
         preferences.registerOnSharedPreferenceChangeListener(this)
@@ -73,7 +78,7 @@ class FakeSubscriptionsRepository @Inject constructor(
     }
 
     override fun onSharedPreferenceChanged(p0: SharedPreferences?, p1: String?) {
-        subscriptionState.value = getSubscriptionState()
+        subscriptionStateFlow.value = getSubscriptionState()
     }
 
 

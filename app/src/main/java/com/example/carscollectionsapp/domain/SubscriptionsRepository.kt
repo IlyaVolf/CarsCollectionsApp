@@ -5,7 +5,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface SubscriptionsRepository {
 
-    val subscriptionState: Flow<SubscriptionState>
+    fun getSubscriptionStateFlow(): Flow<SubscriptionState>
 
     fun purchase()
 
