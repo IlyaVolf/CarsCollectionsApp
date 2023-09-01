@@ -6,6 +6,8 @@ sealed class MainScreenEffect {
 
     data class NavigateToCarDetailsScreen(val carId: Long) : MainScreenEffect()
 
+    data object OpenSubscriptionPopUpScreen  : MainScreenEffect()
+
     data object NavigateToSettingsScreen : MainScreenEffect()
 
 }

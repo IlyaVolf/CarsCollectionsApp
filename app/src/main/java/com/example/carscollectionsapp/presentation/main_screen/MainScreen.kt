@@ -20,6 +20,8 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -35,6 +37,8 @@ import com.example.carscollectionsapp.presentation.main_screen.entities.MainScre
 import com.example.carscollectionsapp.presentation.main_screen.views.MainScreenLoading
 import com.example.carscollectionsapp.presentation.main_screen.views.MainScreenSuccessfulState
 import com.example.carscollectionsapp.presentation.navigation.CarsAppScreens
+import com.example.carscollectionsapp.presentation.subscription.SubscriptionScreenPopUp
+import com.example.carscollectionsapp.presentation.subscription.views.SubscriptionScreenSuccessful
 import com.example.carscollectionsapp.utils.collectAsEffect
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -47,26 +51,35 @@ fun MainScreen(
     val state = viewModel.state.collectAsState()
     val search = viewModel.searchQuery.collectAsState()
 
+    val openDialog = remember { mutableStateOf(false) }
+
     viewModel.effect.collectAsEffect { effect ->
         when (effect) {
-            MainScreenEffect.NavigateToCarAddScreen -> {
+            is MainScreenEffect.NavigateToCarAddScreen -> {
                 navController.navigate(
                     CarsAppScreens.CarAddScreen.route
                 )
             }
+
             is MainScreenEffect.NavigateToCarDetailsScreen -> {
                 navController.navigate(
                     CarsAppScreens.CarDetailsScreen.passArguments(effect.carId)
                 )
             }
+
             is MainScreenEffect.NavigateToSettingsScreen -> {
                 navController.navigate(
                     CarsAppScreens.SettingsScreen.route
                 )
             }
 
+            is MainScreenEffect.OpenSubscriptionPopUpScreen -> {
+                openDialog.value = true
+            }
         }
     }
+
+    SubscriptionScreenPopUp(openDialog)
 
     Scaffold(
         floatingActionButton = {
@@ -91,8 +104,10 @@ fun MainScreen(
                 .padding(paddingValues = paddingValues)
         ) {
 
-            Row(modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
-                verticalAlignment = Alignment.CenterVertically) {
+            Row(
+                modifier = Modifier.padding(horizontal = 16.dp, vertical = 8.dp),
+                verticalAlignment = Alignment.CenterVertically
+            ) {
                 CustomTextField(
                     modifier = Modifier.weight(1f),
                     label = stringResource(R.string.search),
@@ -108,9 +123,12 @@ fun MainScreen(
                 Icon(
                     imageVector = Icons.Default.Settings,
                     contentDescription = null,
-                    modifier = Modifier.clickable {
-                        viewModel.onEvent(MainScreenEvent.OnSettingsClicked)
-                    }.padding(12.dp).size(32.dp),
+                    modifier = Modifier
+                        .clickable {
+                            viewModel.onEvent(MainScreenEvent.OnSettingsClicked)
+                        }
+                        .padding(12.dp)
+                        .size(32.dp),
                     tint = MaterialTheme.colorScheme.primary
                 )
 

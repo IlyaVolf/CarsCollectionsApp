@@ -4,7 +4,9 @@ import android.util.Log
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carscollectionsapp.domain.CarsRepository
+import com.example.carscollectionsapp.domain.SubscriptionsRepository
 import com.example.carscollectionsapp.domain.entities.Car
+import com.example.carscollectionsapp.domain.entities.SubscriptionState
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEffect
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEvent
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenState
@@ -21,7 +23,8 @@ import javax.inject.Inject
 
 @HiltViewModel
 class MainScreenViewModel @Inject constructor(
-    private val carsRepository: CarsRepository
+    private val carsRepository: CarsRepository,
+    private val subscriptionsRepository: SubscriptionsRepository
 ) : ViewModel() {
 
     // todo аккуратно с ЖЦ флоу! Мб где-то использовать LD
@@ -79,7 +82,6 @@ class MainScreenViewModel @Inject constructor(
 
             carsRepository.getCars(queryText).collectLatest { cars ->
                 _state.value = MainScreenState.Successful(cars)
-                Log.d("ABCD", cars.listToString())
             }
         } catch (e: Exception) {
             _state.value = MainScreenState.Error
@@ -88,30 +90,54 @@ class MainScreenViewModel @Inject constructor(
 
     fun onEvent(event: MainScreenEvent) {
         when (event) {
-            is MainScreenEvent.OnAddNewCarClicked -> onAddNewCocktailClicked()
+            is MainScreenEvent.OnAddNewCarClicked -> onAddNewCarClicked()
 
-            is MainScreenEvent.OnCarClicked -> onCocktailClicked(event.id)
+            is MainScreenEvent.OnCarClicked -> onCarClicked(event.id)
 
-            MainScreenEvent.OnSettingsClicked -> onSettingsClicked()
+            is MainScreenEvent.OnSettingsClicked -> onSettingsClicked()
         }
     }
 
-    private fun onAddNewCocktailClicked() {
-        viewModelScope.launch {
-            _effect.emit(MainScreenEffect.NavigateToCarAddScreen)
+    private fun onAddNewCarClicked() = viewModelScope.launch {
+        when (val subscriptionState = subscriptionsRepository.subscriptionStateFlow.value) {
+            is SubscriptionState.SubscribedState -> {
+                subscriptionsRepository.countAsCarAddOpened()
+                _effect.emit(MainScreenEffect.NavigateToCarAddScreen)
+            }
+
+            is SubscriptionState.UnsubscribedState -> {
+                Log.d("ACBD", subscriptionState.toString())
+                if (subscriptionState.carUploadCount > 0) {
+                    subscriptionsRepository.countAsCarAddOpened()
+                    _effect.emit(MainScreenEffect.NavigateToCarAddScreen)
+                } else {
+                    _effect.emit(MainScreenEffect.OpenSubscriptionPopUpScreen)
+                }
+            }
         }
     }
 
-    private fun onCocktailClicked(id: Long) {
-        viewModelScope.launch {
-            _effect.emit(MainScreenEffect.NavigateToCarDetailsScreen(id))
+    private fun onCarClicked(id: Long) = viewModelScope.launch {
+        when (val subscriptionState = subscriptionsRepository.subscriptionStateFlow.value) {
+            is SubscriptionState.SubscribedState -> {
+                subscriptionsRepository.countAsCarDetailsOpened()
+                _effect.emit(MainScreenEffect.NavigateToCarDetailsScreen(id))
+            }
+
+            is SubscriptionState.UnsubscribedState -> {
+                Log.d("ACBD", subscriptionState.toString())
+                if (subscriptionState.carWatchCount > 0) {
+                    subscriptionsRepository.countAsCarDetailsOpened()
+                    _effect.emit(MainScreenEffect.NavigateToCarDetailsScreen(id))
+                } else {
+                    _effect.emit(MainScreenEffect.OpenSubscriptionPopUpScreen)
+                }
+            }
         }
     }
 
-    private fun onSettingsClicked() {
-        viewModelScope.launch {
-            _effect.emit(MainScreenEffect.NavigateToSettingsScreen)
-        }
+    private fun onSettingsClicked() = viewModelScope.launch {
+        _effect.emit(MainScreenEffect.NavigateToSettingsScreen)
     }
 
 
