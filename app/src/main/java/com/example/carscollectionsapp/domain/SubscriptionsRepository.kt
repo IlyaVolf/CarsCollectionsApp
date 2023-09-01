@@ -1,14 +1,21 @@
 package com.example.carscollectionsapp.domain
 
+import com.example.carscollectionsapp.domain.entities.SubscriptionDetails
 import com.example.carscollectionsapp.domain.entities.SubscriptionState
-import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.StateFlow
 
 interface SubscriptionsRepository {
 
-    fun getSubscriptionStateFlow(): Flow<SubscriptionState>
+    val subscriptionStateFlow: StateFlow<SubscriptionState>
 
-    fun purchase()
+    suspend fun getSubscriptionDetails(): SubscriptionDetails
 
-    fun reset()
+    suspend fun countAsCarDetailsOpened()
+
+    suspend fun countAsCarAddOpened()
+
+    suspend fun purchase()
+
+    suspend fun reset()
 
 }
