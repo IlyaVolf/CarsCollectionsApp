@@ -2,7 +2,6 @@ package com.example.carscollectionsapp.data.repositories
 
 import android.content.Context
 import android.content.SharedPreferences
-import android.util.Log
 import androidx.core.content.edit
 import com.example.carscollectionsapp.di.IoDispatcher
 import com.example.carscollectionsapp.domain.SubscriptionsRepository
@@ -56,7 +55,6 @@ class FakeSubscriptionsRepository @Inject constructor(
                 val newSubscriptionState = subscriptionState.copy(
                     carWatchCount = subscriptionState.carWatchCount - 1
                 )
-                Log.d("ABCD", "countAsCarDetailsOpened $newSubscriptionState")
                 setSubscriptionState(newSubscriptionState)
                 return@withContext
             }
@@ -73,7 +71,6 @@ class FakeSubscriptionsRepository @Inject constructor(
                 val newSubscriptionState = subscriptionState.copy(
                     carUploadCount = subscriptionState.carUploadCount - 1
                 )
-                Log.d("ABCD", "countAsCarDetailsOpened $newSubscriptionState")
                 setSubscriptionState(newSubscriptionState)
                 return@withContext
             }
@@ -128,9 +125,7 @@ class FakeSubscriptionsRepository @Inject constructor(
             SubscriptionState.UnsubscribedState(
                 carWatchCount = carWatchCount,
                 carUploadCount = carUploadCount
-            ).also {
-                Log.d("ABCD", "getSubscriptionStateFromSharedPreferences $this")
-            }
+            )
         }
     }
 
@@ -142,7 +137,6 @@ class FakeSubscriptionsRepository @Inject constructor(
     }
 
     override fun onSharedPreferenceChanged(sharedPreferences: SharedPreferences?, key: String?) {
-        Log.d("ABCD", "onSharedPreferenceChanged")
         _subscriptionStateFlow.value = getSubscriptionStateFromSharedPreferences()
     }
 

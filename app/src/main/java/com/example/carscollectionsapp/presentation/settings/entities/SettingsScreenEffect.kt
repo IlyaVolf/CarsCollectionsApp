@@ -4,4 +4,6 @@ sealed class SettingsScreenEffect {
 
     data object Reset: SettingsScreenEffect()
 
+    data object DBInited: SettingsScreenEffect()
+
 }

@@ -1,9 +1,13 @@
 package com.example.carscollectionsapp.presentation.settings
 
 import android.widget.Toast
+import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
@@ -36,19 +40,30 @@ fun SettingsScreen(
                 SettingsScreenEffect.Reset -> {
                     Toast.makeText(context, "Reset", Toast.LENGTH_SHORT).show()
                 }
+
+                SettingsScreenEffect.DBInited -> {
+                    Toast.makeText(context, "Db Inited", Toast.LENGTH_SHORT).show()
+                }
             }
         }
     }
 
-    Box(
+    Column(
         modifier = Modifier
             .fillMaxSize()
             .padding(horizontal = 16.dp),
-        contentAlignment = Alignment.Center
+        horizontalAlignment = Alignment.CenterHorizontally,
+        verticalArrangement = Arrangement.Center
     ) {
         CustomButton(
             onClick = { viewModel.onEvent(SettingsScreenEvent.OnResetClicked) },
             text = stringResource(id = R.string.reset),
+            modifier = Modifier.fillMaxWidth(0.5f)
+        )
+        Spacer(modifier = Modifier.height(8.dp))
+        CustomButton(
+            onClick = { viewModel.onEvent(SettingsScreenEvent.OnInitDbClicked) },
+            text = stringResource(id = R.string.init_db),
             modifier = Modifier.fillMaxWidth(0.5f)
         )
     }

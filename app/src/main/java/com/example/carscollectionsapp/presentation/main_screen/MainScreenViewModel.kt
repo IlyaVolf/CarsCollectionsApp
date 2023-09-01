@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.carscollectionsapp.domain.CarsRepository
 import com.example.carscollectionsapp.domain.SubscriptionsRepository
-import com.example.carscollectionsapp.domain.entities.Car
 import com.example.carscollectionsapp.domain.entities.SubscriptionState
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEffect
 import com.example.carscollectionsapp.presentation.main_screen.entities.MainScreenEvent
@@ -17,7 +16,6 @@ import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-import java.util.Calendar
 import javax.inject.Inject
 
 @HiltViewModel
@@ -25,8 +23,6 @@ class MainScreenViewModel @Inject constructor(
     private val carsRepository: CarsRepository,
     private val subscriptionsRepository: SubscriptionsRepository
 ) : ViewModel() {
-
-    // todo аккуратно с ЖЦ флоу! Мб где-то использовать LD
 
     val searchQuery = MutableStateFlow("")
 
@@ -38,37 +34,6 @@ class MainScreenViewModel @Inject constructor(
 
     init {
         viewModelScope.launch {
-            carsRepository.deleteAllCars()
-            carsRepository.addCar(
-                Car(
-                    0,
-                    "Aston Martin Vantage",
-                    null,
-                    1993,
-                    3.0F,
-                    Calendar.getInstance().timeInMillis
-                )
-            )
-            carsRepository.addCar(
-                Car(
-                    0,
-                    "Lada Vesta",
-                    null,
-                    2015,
-                    1.6F,
-                    Calendar.getInstance().timeInMillis
-                )
-            )
-            carsRepository.addCar(
-                Car(
-                    0,
-                    "Lada Granta",
-                    "https://foto.carexpert.ru/img/foto1680/vaz/vazgr038.jpg",
-                    2012,
-                    1.6F,
-                    Calendar.getInstance().timeInMillis
-                )
-            )
             searchQuery.collectLatest { queryText ->
                 load(queryText)
             }
@@ -105,7 +70,6 @@ class MainScreenViewModel @Inject constructor(
             }
 
             is SubscriptionState.UnsubscribedState -> {
-                Log.d("ACBD", subscriptionState.toString())
                 if (subscriptionState.carUploadCount > 0) {
                     subscriptionsRepository.countAsCarAddOpened()
                     _effect.emit(MainScreenEffect.NavigateToCarAddScreen)
@@ -124,7 +88,6 @@ class MainScreenViewModel @Inject constructor(
             }
 
             is SubscriptionState.UnsubscribedState -> {
-                Log.d("ACBD", subscriptionState.toString())
                 if (subscriptionState.carWatchCount > 0) {
                     subscriptionsRepository.countAsCarDetailsOpened()
                     _effect.emit(MainScreenEffect.NavigateToCarDetailsScreen(id))

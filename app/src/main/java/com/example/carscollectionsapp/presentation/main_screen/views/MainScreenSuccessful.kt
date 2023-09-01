@@ -1,6 +1,7 @@
 package com.example.carscollectionsapp.presentation.main_screen.views
 
 import android.content.res.Configuration
+import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.grid.GridCells
 import androidx.compose.foundation.lazy.grid.LazyVerticalGrid
@@ -24,7 +25,7 @@ fun MainScreenSuccessfulState(
         else -> 1
     }
 
-    LazyVerticalGrid(columns = GridCells.Fixed(gridCellsCount), modifier = modifier.padding(horizontal = 0.dp)) {
+    LazyVerticalGrid(columns = GridCells.Fixed(gridCellsCount), modifier = modifier.padding(bottom = 8.dp)) {
         items(cars, key = { it.id }) {
             CarItem(
                 car = it,
@@ -32,4 +33,5 @@ fun MainScreenSuccessfulState(
             )
         }
     }
+
 }
