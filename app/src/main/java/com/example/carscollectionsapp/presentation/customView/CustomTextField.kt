@@ -41,9 +41,7 @@ fun CustomTextField(
             )
         },
         singleLine = singleLine,
-        isError = (state != TextFieldState.OK && state != TextFieldState.INIT).apply {
-            Log.d("ABCD", state.toString())
-        },
+        isError = (state != TextFieldState.OK && state != TextFieldState.INIT),
         supportingText = {
             when (state) {
                 TextFieldState.INIT -> {
