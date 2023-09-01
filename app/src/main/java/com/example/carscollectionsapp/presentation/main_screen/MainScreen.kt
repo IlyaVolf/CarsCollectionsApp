@@ -24,9 +24,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import androidx.lifecycle.Lifecycle
 import androidx.navigation.NavController
 import com.example.carscollectionsapp.R
 import com.example.carscollectionsapp.presentation.customView.CustomTextField
@@ -50,31 +52,34 @@ fun MainScreen(
 
     val state = viewModel.state.collectAsState()
     val search = viewModel.searchQuery.collectAsState()
-
     val openDialog = remember { mutableStateOf(false) }
+    val lifecycleOwner = LocalLifecycleOwner.current
 
     viewModel.effect.collectAsEffect { effect ->
-        when (effect) {
-            is MainScreenEffect.NavigateToCarAddScreen -> {
-                navController.navigate(
-                    CarsAppScreens.CarAddScreen.route
-                )
-            }
+        val currentState = lifecycleOwner.lifecycle.currentState
+        if (currentState.isAtLeast(Lifecycle.State.RESUMED)) {
+            when (effect) {
+                is MainScreenEffect.NavigateToCarAddScreen -> {
+                    navController.navigate(
+                        CarsAppScreens.CarAddScreen.route
+                    )
+                }
 
-            is MainScreenEffect.NavigateToCarDetailsScreen -> {
-                navController.navigate(
-                    CarsAppScreens.CarDetailsScreen.passArguments(effect.carId)
-                )
-            }
+                is MainScreenEffect.NavigateToCarDetailsScreen -> {
+                    navController.navigate(
+                        CarsAppScreens.CarDetailsScreen.passArguments(effect.carId)
+                    )
+                }
 
-            is MainScreenEffect.NavigateToSettingsScreen -> {
-                navController.navigate(
-                    CarsAppScreens.SettingsScreen.route
-                )
-            }
+                is MainScreenEffect.NavigateToSettingsScreen -> {
+                    navController.navigate(
+                        CarsAppScreens.SettingsScreen.route
+                    )
+                }
 
-            is MainScreenEffect.OpenSubscriptionPopUpScreen -> {
-                openDialog.value = true
+                is MainScreenEffect.OpenSubscriptionPopUpScreen -> {
+                    openDialog.value = true
+                }
             }
         }
     }
