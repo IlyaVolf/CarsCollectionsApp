@@ -2,6 +2,8 @@
 
 Apk-файл: [apk file](/CarsCollectionApp.apk)
 
+UML диаграммы: https://www.figma.com/file/QM4YR9DIlMPzb2KSVLDKRM/CarsCollctionsApp-UML
+
 Примечание:
 -  В настройках можно инициализировать БД
 
